@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
+import { ActiveLink } from '../ActiveLink'
 import { SinginButton } from '../SinginButton'
 import styles from './styles.module.scss'
 
@@ -7,8 +9,12 @@ export function Header() {
             <div className={styles.headerContent}>
                 <img src="/images/logo.svg" alt="" />
                 <nav>
-                    <a className={styles.active}>Home</a>
-                    <a>Posts</a>
+                    <ActiveLink activeClassName={styles.active} href='/' >
+                        <a>Home</a>
+                    </ActiveLink>
+                    <ActiveLink activeClassName={styles.active} href='/posts'>
+                        <a>Posts</a>
+                    </ActiveLink>
                 </nav>
 
                 <SinginButton />

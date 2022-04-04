@@ -1,0 +1,21 @@
+{
+  "id": "d7b54fa8-a84d-477f-8dfe-8f16c1a97c61",
+  "uid": "quas-dolor-voluptas",
+  "type": "publication",
+  "data": {
+    "Title": [
+      {
+        "type": "heading1",
+        "text": "Utilize plug-and-play experiences",
+        "spans": []
+      }
+    ],
+    "Content": [
+      {
+        "type": "paragraph",
+        "text": "Cillum Lorem Lorem quis sint proident minim veniam. Exercitation enim id enim nostrud nisi sint nostrud qui.",
+        "spans": []
+      }
+    ]
+  }
+}
