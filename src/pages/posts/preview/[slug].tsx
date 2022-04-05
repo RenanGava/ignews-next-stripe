@@ -1,6 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from "next"
+import { useSession } from "next-auth/react"
 import Head from "next/head"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import { RichText } from "prismic-dom"
+import { useEffect } from "react"
 import { getPrismicClient } from "../../../services/prismic"
 import styles from '../post.module.scss'
 
@@ -15,6 +19,16 @@ interface PostPreviewProps{
 
 
 export default function PostPreview({ post }:PostPreviewProps){
+
+    const {data: session} = useSession()
+    const router = useRouter()
+    
+    useEffect(() =>{
+        if(session?.actverSubscription){
+            router.push(`/posts/${post.slug}`)
+        }
+    },[session])
+
     return(
         <>
             <Head>
@@ -26,10 +40,16 @@ export default function PostPreview({ post }:PostPreviewProps){
                     <h1>{post.title}</h1>
                     <time>{post.updatedAt}</time>
                     <div
-                        className={styles.postContent} 
+                        className={`${styles.postContent} ${styles.previewContent}`} 
                         dangerouslySetInnerHTML={{__html: post.content}} 
                     />
                 </article>
+                <div className={ styles.continueReading}>
+                    Wanna Continue Reading? 
+                    <Link href="/">
+                        <a >Subscribe Now 🤗</a>
+                    </Link>
+                </div>
             </main>
         </>
     )
@@ -49,24 +69,24 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
     const response = await prismic.getByUID('publication', String(slug), {})
 
-    console.log(response);
+    console.log('teste', response);
     
-  
     const post = {
-      slug,
-      title: RichText.asText(response.data.Title),
-      content: RichText.asHtml(response.data.Content.splice(0, 3)),
-      updatedAt: new Date(response.last_publication_date).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      })
+        slug,
+        title: RichText.asText(response.data.Title),
+        content: RichText.asHtml(response.data.Content.splice(0, 3)),
+        updatedAt: new Date(response.last_publication_date).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        })
     }
     return {
-      props: {
-        post,
-      },
-      revalidate: 60 * 30, // 30 minutes
+        props: {
+            post,
+        },
+        revalidate: 60 * 30, // 30 minutes
     }
+
   
 }

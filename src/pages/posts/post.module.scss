@@ -38,5 +38,32 @@
                 margin: 0.5rem 0;
             }
         }
+        &.previewContent{
+            // essas 3 propriedades css servem para deixar o texto com um degrade
+            background: linear-gradient(var(--gray-100), transparent);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+}
+
+.continueReading{
+    padding: 2rem;
+    text-align: center;
+    background: var(--gray-850);
+    border-radius: 100px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 4rem 0 2rem;
+    transition: 0.5s;
+    cursor: pointer;
+
+    a{
+        color: var(--yellow-500);
+        margin-left: 0.5rem;
+
+        &:hover{
+            text-decoration: underline;
+        }
     }
 }
